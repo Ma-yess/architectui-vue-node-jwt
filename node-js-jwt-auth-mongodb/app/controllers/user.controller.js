@@ -13,3 +13,6 @@ exports.adminBoard = (req, res) => {
 exports.moderatorBoard = (req, res) => {
   res.status(200).send("Moderator Content.");
 };
+exports.listUsers = (req, res) => {
+  res.status(200).send("Listes des utilisateurs.");
+};

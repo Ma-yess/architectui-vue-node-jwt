@@ -39,13 +39,17 @@
                         title: 'Utilisateurs',
                     },
                     {
-                        title: 'Listes des utilisateur',
-                        icon: 'pe-7s-musiclist',
+                        title: 'Listes des utilisateurs',
+                        icon: 'pe-7s-users',
                         child: [
                             {
                                 href: '/users',
-                                title: 'Utilisateur',
+                                title: 'Utilisateur actuel',
                             },
+                            {
+                                href: '/list-users',
+                                title: 'Liste des Utilisateurs',
+                            }
                         ]
                     },
                     {

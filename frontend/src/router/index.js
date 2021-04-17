@@ -25,6 +25,12 @@ export default new Router({
             //meta: {layout: 'userpages'},
             component: () => import('../views/Users/Utilisateurs.vue'),//Dashboards/Analytics.vue'),
         },
+        {
+            path: '/list-users',
+            name: 'Listusers',
+            //meta: {layout: 'userpages'},
+            component: () => import('../views/Users/Listeusers.vue'),//Dashboards/Analytics.vue'),
+        },
         // Pages
 
         
