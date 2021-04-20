@@ -10,7 +10,7 @@
                  :fixed="fixed"
                  :foot-clone="footClone"
                  :items="items"
-                 :fields="fields">
+                 :titres="titres">
             </b-table>
         </b-card>
 
@@ -26,7 +26,7 @@
     data: () => ({
       
 
-      fields: [ "nom_utilisateur", 'email', 'role' ],
+      titres: [ "nom_utilisateur", 'email', 'role' ],
       items: [
         { role: 'Admin', nom_utilisateur: 'Dickerson', email: 'Macdonald' },
         { role: 'user', nom_utilisateur: 'Larsen', email: 'Shaw' },
