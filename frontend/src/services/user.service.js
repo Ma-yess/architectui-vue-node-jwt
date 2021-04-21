@@ -8,8 +8,10 @@ class UserService {
     return axios.get(API_URL + 'all');
   }
 
-  getUsersList() {
-    return axios.get(API_URL + 'list-users');
+  //The params object will have one, two or all fields: title, page, size.
+  getUsersList(params) {
+    
+    return axios.get(API_URL + 'list-users', {params});
   }
 
   getUserBoard() {

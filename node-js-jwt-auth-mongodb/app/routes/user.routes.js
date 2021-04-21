@@ -1,6 +1,6 @@
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
-
+const users = require("../controllers/listeUser.controller.js");
 module.exports = function(app) {
   app.use(function(req, res, next) {
     res.header(
@@ -12,7 +12,8 @@ module.exports = function(app) {
 
   app.get("/api/test/all", controller.allAccess);
 
-  app.get("/api/test/list-users", controller.listUsers);
+  // Retrieve all users
+  app.get("/api/test/list-users", users.findAll);
 
   app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 

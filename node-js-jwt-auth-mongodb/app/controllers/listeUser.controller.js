@@ -16,7 +16,7 @@ exports.findAll = (req, res) => {
   var condition = username
     ? { username: { $regex: new RegExp(username), $options: "i" } }
     : {};
-    console.log(User);
+    console.log(req.body);
   const { limit, offset } = getPagination(page, size);
   console.log(offset);
   User.paginate(condition, { offset, limit })

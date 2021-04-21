@@ -25,6 +25,6 @@ module.exports = (mongoose, mongoosePaginate) => {
   schema.plugin(mongoosePaginate);
   
   const User = mongoose.model("user", schema);
-  console.log('user model' + User)
+  console.log('user model' + User);
   return User;
 };
