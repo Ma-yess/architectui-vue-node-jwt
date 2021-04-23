@@ -42,13 +42,18 @@
                         title: 'Listes des utilisateurs',
                         icon: 'pe-7s-users',
                         child: [
-                            {
-                                href: '/users',
-                                title: 'Utilisateur actuel',
-                            },
+                            
                             {
                                 href: '/list-users',
                                 title: 'Liste des Utilisateurs',
+                            },
+                            {
+                                href: '/add-user',
+                                title: 'Créer un Utilisateur',
+                            },
+                            {
+                                href: '/users',
+                                title: 'Utilisateur actuel',
                             }
                         ]
                     },

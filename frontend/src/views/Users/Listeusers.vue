@@ -1,19 +1,32 @@
 <template>
     <div>
-        <div class="search-wrapper" v-bind:class="{ active: searchOpen }">
+        
+        <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="search-wrapper " v-bind:class="{ active: searchOpen }">
             <div class="input-holder">
-                <input type="text" class="search-input" placeholder="Type to search" v-on:input="handleSearchChange" v-model="searchTitle"/>
+                <input type="text" class="search-input" placeholder="Tapez pour rechercher" v-on:input="handleSearchChange" v-model="searchTitle"/>
                 <button class="search-icon" v-on:click="searchOpen = !searchOpen ,page = 1; retrieveTutorials(); "><span/></button>
             </div>
             <button class="close" v-on:click="searchOpen = !searchOpen"/>
         </div>
-        <div class="mb-3">
-        Items per Page:
-        <select v-model="pageSize" v-on:change="handlePageSizeChange($event)" :key="key">
-          <option v-for="size in pageSizes" :key="size" :value="size">
+            <div class="page-title-actions">
+                <button type="button" class="btn-shadow d-inline-flex align-items-center btn btn-success">
+                    <font-awesome-icon class="mr-2" icon="plus"/>
+                    Créer un nouveau
+                </button>
+            </div>
+        </div>
+    </div>
+        <div  class="mb-2" style="display: flex; align-items: center;">
+        Lignes par page:
+        <div class="ml-2" style="width: 50px;">
+        <select class="custom-select mr-2"  v-model="pageSize" v-on:change="handlePageSizeChange($event)" :key="key">
+          <option v-for="size in pageSizes"  :key="size" :value="size">
             {{ size }}
           </option>
         </select>
+        </div>
       </div>
         <b-card title="Tous les utilisateurs" class="main-card mb-4">
             <b-table :striped="striped"
@@ -31,25 +44,54 @@
                     {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
                   </b-button>
 
-                  <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
+                  <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change
                   <b-form-checkbox v-model="row.detailsShowing" @change="row.toggleDetails">
                     Details via check
-                  </b-form-checkbox>
+                  </b-form-checkbox> -->
                 </template>
 
                 <template #row-details="row">
                   <b-card>
-                    <b-row class="mb-2">
-                      <b-col sm="3" class="text-sm-right"><b>Roles:</b></b-col>
-                      <b-col>{{ row.item.roles }}</b-col>
-                    </b-row>
+                          <div class="row">
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>First Name:</b></b-col>
+                                <b-col>{{ row.item.firstName }}</b-col>
+                              </b-row>
 
-                    <b-row class="mb-2">
-                      <b-col sm="3" class="text-sm-right"><b>ID:</b></b-col>
-                      <b-col>{{ row.item.id }}</b-col>
-                    </b-row>
-
-                    <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>Last Name:</b></b-col>
+                                <b-col>{{ row.item.lastName }}</b-col>
+                              </b-row>
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>Email Adress:</b></b-col>
+                                <b-col>{{ row.item.email }}</b-col>
+                              </b-row>
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>Téléphone:</b></b-col>
+                                <b-col>{{ row.item.phone }}</b-col>
+                              </b-row>
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>Téléphone2:</b></b-col>
+                                <b-col>{{ row.item.phone2 }}</b-col>
+                              </b-row>
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>Adress:</b></b-col>
+                                <b-col>{{ row.item.adress }}</b-col>
+                              </b-row>
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>Adress 2:</b></b-col>
+                                <b-col>{{ row.item.adress2 }}</b-col>
+                              </b-row>
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>Ville:</b></b-col>
+                                <b-col>{{ row.item.city }}</b-col>
+                              </b-row>
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>Code Pstale:</b></b-col>
+                                <b-col>{{ row.item.zipCode }}</b-col>
+                              </b-row>
+                          </div>
+                          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
                   </b-card>
                 </template>
             </b-table>
@@ -69,10 +111,23 @@
 <script>
 
 import UserService from "../../services/user.service";
+import {library} from '@fortawesome/fontawesome-svg-core'
+    import {
+        faStar,
+        faPlus
+    } from '@fortawesome/free-solid-svg-icons'
+    import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+
+    library.add(
+        faStar,
+        faPlus,
+    );
 
   export default {
     name: 'Listusers',
-    
+    components: {
+            'font-awesome-icon': FontAwesomeIcon,
+        },
     data: () => ({
       
       searchOpen: true,
@@ -97,7 +152,7 @@ import UserService from "../../services/user.service";
       fixed: false,
       footClone: false
     }),
-
+    
     methods: {
         getRequestParams(searchTitle, page, pageSize) {
       let params = {};

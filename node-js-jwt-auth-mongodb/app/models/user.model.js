@@ -4,14 +4,23 @@ module.exports = (mongoose, mongoosePaginate) => {
   const schema = new mongoose.Schema(
     {
       username: String,
-    email: String,
-    password: String,
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role"
-      }
-    ]
+      firstName: String,
+      lastName: String,
+      email: String,
+      password: String,
+      phone: String,
+      phone2: String,
+      adresse: String,
+      adresse2: String,
+      city: String,
+      zipCode: String,
+
+      roles: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Role"
+        }
+      ]
     },
     { timestamps: true }
   );
