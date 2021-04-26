@@ -48,7 +48,7 @@
                                 title: 'Liste des Utilisateurs',
                             },
                             {
-                                href: '/add-user',
+                                href: '/signup',
                                 title: 'Créer un Utilisateur',
                             },
                             {

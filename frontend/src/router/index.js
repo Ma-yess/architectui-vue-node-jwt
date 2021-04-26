@@ -26,8 +26,8 @@ export default new Router({
             component: () => import('../views/Users/Utilisateurs.vue'),//Dashboards/Analytics.vue'),
         },
         {
-            path: '/add-user',
-            name: 'add-user',
+            path: '/signup',
+            name: 'Register',
             //meta: {layout: 'userpages'},
             component: () => import('../views/Users/AddUser.vue'),//Dashboards/Analytics.vue'),
         },
