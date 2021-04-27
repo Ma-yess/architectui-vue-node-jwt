@@ -8,7 +8,7 @@ const getPagination = (page, size) => {
   return { limit, offset };
 };
 
-// Create and Save a new Tutorial
+// Create and Save a new User
 exports.create = (req, res) => {
   
 };
@@ -36,29 +36,47 @@ exports.findAll = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials.",
+          err.message || "Some error occurred while retrieving users.",
       });
   });
     
     
 };
 
-// Find a single Tutorial with an id
+// Find a single User with an id
 exports.findOne = (req, res) => {
   
 };
 
-// Update a Tutorial by the id in the request
+// Update a User by the id in the request
 exports.update = (req, res) => {
   
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a User with the specified id in the request
 exports.delete = (req, res) => {
-  
+  const id = req.params.id;
+
+  User.findByIdAndRemove(id)
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot delete User with id=${id}. Maybe User was not found!`
+        });
+      } else {
+        res.send({
+          message: "User was deleted successfully!"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete User with id=" + id
+      });
+    });
 };
 
-// Delete all Tutorials from the database.
+// Delete all Users from the database.
 exports.deleteAll = (req, res) => {
   
 };

@@ -15,6 +15,9 @@ module.exports = function(app) {
   // Retrieve all users
   app.get("/api/test/list-users", users.findAll);
 
+  // Delete a Tutorial with id
+  app.delete("/api/test/:id", users.delete);
+
   app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
   app.get(

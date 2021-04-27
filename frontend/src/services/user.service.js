@@ -13,7 +13,9 @@ class UserService {
     
     return axios.get(API_URL + 'list-users', {params});
   }
-  
+  delete(id) {
+    return axios.delete(API_URL + `${id}`);
+  }
   getUserBoard() {
     return axios.get(API_URL + 'user', { headers: authHeader() });
   }

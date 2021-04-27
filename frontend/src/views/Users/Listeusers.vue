@@ -6,12 +6,12 @@
             <div class="search-wrapper " v-bind:class="{ active: searchOpen }">
             <div class="input-holder">
                 <input type="text" class="search-input" placeholder="Tapez pour rechercher" v-on:input="handleSearchChange" v-model="searchTitle"/>
-                <button class="search-icon" v-on:click="searchOpen = !searchOpen ,page = 1; retrieveTutorials(); "><span/></button>
+                <button class="search-icon" v-on:click="searchOpen = !searchOpen ,page = 1; retrieveUsers(); "><span/></button>
             </div>
             <button class="close" v-on:click="searchOpen = !searchOpen"/>
         </div>
             <div class="page-title-actions">
-                <button type="button" class="btn-shadow d-inline-flex align-items-center btn btn-success">
+                <button type="button" class="btn-shadow d-inline-flex align-items-center btn btn-success" @click="$router.push('/signup')">
                     <font-awesome-icon class="mr-2" icon="plus"/>
                     Créer un nouveau
                 </button>
@@ -20,8 +20,8 @@
     </div>
         <div  class="mb-2" style="display: flex; align-items: center;">
         Lignes par page:
-        <div class="ml-2" style="width: 50px;">
-        <select class="custom-select mr-2"  v-model="pageSize" v-on:change="handlePageSizeChange($event)" :key="key">
+        <div class="ml-2" >
+        <select class="custom-select "  v-model="pageSize" v-on:change="handlePageSizeChange($event)" :key="key">
           <option v-for="size in pageSizes"  :key="size" :value="size">
             {{ size }}
           </option>
@@ -90,8 +90,15 @@
                                 <b-col sm="4" class="text-sm-right"><b>Code Pstale:</b></b-col>
                                 <b-col>{{ row.item.zipCode }}</b-col>
                               </b-row>
+                              <b-row class="col-md-4 mb-2">
+                                <b-col sm="4" class="text-sm-right"><b>Role:</b></b-col>
+                                <b-col >{{ userRole(row.item.roles) }}</b-col>
+                              </b-row>
                           </div>
                           <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+                          <button class="badge badge-danger mr-2" @click="deleteUser(row.item.id)">
+                            Delete
+                          </button>
                   </b-card>
                 </template>
             </b-table>
@@ -130,6 +137,7 @@ import {library} from '@fortawesome/fontawesome-svg-core'
         },
     data: () => ({
       
+      //userRole:"",
       searchOpen: true,
       searchTitle: "",
       key:"",
@@ -140,9 +148,9 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 
       page: 1,
       count: 0,
-      pageSize: 3,
+      pageSize: 5,
 
-      pageSizes: [2, 4, 6],
+      pageSizes: [5, 10, 15],
       striped: true,
       bordered: true,
       outlined: false,
@@ -153,6 +161,9 @@ import {library} from '@fortawesome/fontawesome-svg-core'
       footClone: false
     }),
     
+    Computed: {
+        
+    },
     methods: {
         getRequestParams(searchTitle, page, pageSize) {
       let params = {};
@@ -172,7 +183,31 @@ import {library} from '@fortawesome/fontawesome-svg-core'
       return params;
     },
 
-    retrieveTutorials() {
+    userRole(role) {
+          
+          if(role == "605885f5126cf2277cb50bf9") {
+            return "Administrateur";
+          } else if(role == "605885f5126cf2277cb50bf7"){
+            return "User";
+          } else if(role == "605885f5126cf2277cb50bf8"){
+            return "Moderateur";
+          } 
+        },
+
+    deleteUser(id) {
+      const idUser = id;
+      alert(idUser)
+      UserService.delete(idUser)
+        .then(response => {
+          alert(response.data);
+          window.location.reload();
+        })
+        .catch(e => {
+          throw(e);
+        });
+    },
+
+    retrieveUsers() {
       const params = this.getRequestParams(
         this.searchTitle,
         this.page,
@@ -184,31 +219,32 @@ import {library} from '@fortawesome/fontawesome-svg-core'
           const { users, totalItems } = response.data;
           this.users = users;
           this.count = totalItems;
+          this.userRole
         })
         .catch((e) => {
           throw e ;
          // console.log(e);
         });
     },
-
+    
     handlePageChange(value) {
       this.page = value;
-      this.retrieveTutorials();
+      this.retrieveUsers();
     },
     
     handleSearchChange() {
-      this.retrieveTutorials();
+      this.retrieveUsers();
     },
 
     handlePageSizeChange(event) {
       this.pageSize = event.target.value;
       this.page = 1;
-      this.retrieveTutorials();
+      this.retrieveUsers();
     },
 
     },
     mounted() {
-      this.retrieveTutorials();
+      this.retrieveUsers();
     }
   }
 </script>
