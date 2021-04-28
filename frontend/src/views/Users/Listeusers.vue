@@ -96,9 +96,52 @@
                               </b-row>
                           </div>
                           <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
-                          <button class="badge badge-danger mr-2" @click="deleteUser(row.item.id)">
-                            Delete
-                          </button>
+                          <b-button size="sm" class=" ml-2" @click="deleteUser(row.item.id);">Delete User</b-button>
+                          <b-button v-b-modal.modal-no-backdrop @click="modalShow = !modalShow" variant="success" size="sm" class=" btn btn-primary ml-2">EDIT</b-button>
+                          <b-modal id="modal-no-backdrop" size="lg" v-model="modalShow" hide-backdrop  >
+                            <b-container fluid>
+                            <b-form @submit="onSubmit" @reset="onReset" >
+                              <b-form-group
+                                id="input-group-1"
+                                label="Email address:"
+                                label-for="input-1"
+                                description="We'll never share your email with anyone else."
+                              >
+                                <b-form-input
+                                  id="input-1"
+                                  v-model="form.email"
+                                  type="email"
+                                  placeholder="Enter email"
+                                  required
+                                ></b-form-input>
+                              </b-form-group>
+
+                              <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+                                <b-form-input
+                                  id="input-2"
+                                  v-model="form.name"
+                                  placeholder="Enter name"
+                                  required
+                                ></b-form-input>
+                              </b-form-group>
+
+                              <b-form-group id="input-group-3" label="Food:" label-for="input-3">
+                                <b-form-select
+                                  id="input-3"
+                                  v-model="form.users"
+                                  :options="users"
+                                  required
+                                ></b-form-select>
+                              </b-form-group>
+                           
+                              
+
+                              <b-button type="submit" variant="primary">Submit</b-button>
+                              <b-button type="reset" variant="danger">Reset</b-button>
+                            </b-form>
+                             </b-container>
+                            
+                          </b-modal>
                   </b-card>
                 </template>
             </b-table>
@@ -137,7 +180,16 @@ import {library} from '@fortawesome/fontawesome-svg-core'
         },
     data: () => ({
       
+      form: {
+          email: '',
+          name: '',
+          food: null,
+          checked: []
+        },
+        foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+        show: true,
       //userRole:"",
+      modalShow: false,
       searchOpen: true,
       searchTitle: "",
       key:"",
@@ -165,6 +217,24 @@ import {library} from '@fortawesome/fontawesome-svg-core'
         
     },
     methods: {
+      onSubmit(event) {
+        event.preventDefault()
+        alert(JSON.stringify(this.form))
+      },
+      onReset(event) {
+        event.preventDefault()
+        // Reset our form values
+        this.form.email = ''
+        this.form.name = ''
+        this.form.food = null
+        this.form.checked = []
+        // Trick to reset/clear native browser form validation state
+        this.show = false
+        this.$nextTick(() => {
+          this.show = true
+        })
+      },
+
         getRequestParams(searchTitle, page, pageSize) {
       let params = {};
 
@@ -200,12 +270,14 @@ import {library} from '@fortawesome/fontawesome-svg-core'
       UserService.delete(idUser)
         .then(response => {
           alert(response.data);
-          window.location.reload();
+          this.retrieveUsers();
         })
         .catch(e => {
           throw(e);
         });
     },
+
+    
 
     retrieveUsers() {
       const params = this.getRequestParams(

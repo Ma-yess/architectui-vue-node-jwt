@@ -15,7 +15,6 @@
 <script>
 
   import PageTitle from "../../Layout/Components/PageTitle.vue";
-
   export default {
     components: {
       PageTitle,
