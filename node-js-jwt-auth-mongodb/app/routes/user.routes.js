@@ -18,6 +18,9 @@ module.exports = function(app) {
   // Delete a Tutorial with id
   app.delete("/api/test/:id", users.delete);
 
+  // Update a Tutorial with id
+  app.put("/api/test/:id", users.update);
+
   app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
   app.get(

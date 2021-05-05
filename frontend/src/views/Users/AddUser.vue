@@ -12,7 +12,7 @@
                     <font-awesome-icon class="mr-2" icon="plus"/>
                     Créer un nouveau
             </button>
-            <button v-if="message" type="button" class="btn-shadow d-inline-flex align-items-center btn btn-success" @click= "$router.push('/list-users')" >
+            <button v-if="message" type="button" class="btn-shadow ml-2 d-inline-flex align-items-center btn btn-success" @click= "$router.push('/list-users')" >
                     <font-awesome-icon class="mr-2" icon="plus"/>
                     Voir la liste
             </button>

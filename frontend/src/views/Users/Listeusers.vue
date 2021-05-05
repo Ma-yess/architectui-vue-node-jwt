@@ -97,48 +97,108 @@
                           </div>
                           <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
                           <b-button size="sm" class=" ml-2" @click="deleteUser(row.item.id);">Delete User</b-button>
-                          <b-button v-b-modal.modal-no-backdrop @click="modalShow = !modalShow" variant="success" size="sm" class=" btn btn-primary ml-2">EDIT</b-button>
-                          <b-modal id="modal-no-backdrop" size="lg" v-model="modalShow" hide-backdrop  >
+                          <b-button v-b-modal.modal-no-backdrop @click="successful = false; getUpdated(row.item.id, row.item.username, row.item.email, row.item.firstName, row.item.lastName, row.item.phone, row.item.phone2, row.item.adresse, row.item.adresse2, row.item.city, row.item.zipCode, row.item.roles )" variant="success" size="sm" class=" btn btn-primary ml-2">EDIT</b-button>
+                          <b-modal id="modal-no-backdrop" size="lg" v-model="modalShow" hide-backdrop hide-footer >
                             <b-container fluid>
-                            <b-form @submit="onSubmit" @reset="onReset" >
-                              <b-form-group
-                                id="input-group-1"
-                                label="Email address:"
-                                label-for="input-1"
-                                description="We'll never share your email with anyone else."
-                              >
-                                <b-form-input
-                                  id="input-1"
-                                  v-model="form.email"
-                                  type="email"
-                                  placeholder="Enter email"
-                                  required
-                                ></b-form-input>
-                              </b-form-group>
-
-                              <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-                                <b-form-input
-                                  id="input-2"
-                                  v-model="form.name"
-                                  placeholder="Enter name"
-                                  required
-                                ></b-form-input>
-                              </b-form-group>
-
-                              <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-                                <b-form-select
-                                  id="input-3"
-                                  v-model="form.users"
-                                  :options="users"
-                                  required
-                                ></b-form-select>
-                              </b-form-group>
-                           
-                              
-
-                              <b-button type="submit" variant="primary">Submit</b-button>
-                              <b-button type="reset" variant="danger">Reset</b-button>
-                            </b-form>
+                            <div
+                                  v-if="message"
+                                  class="alert"
+                                  :class="successful ? 'alert-success' : 'alert-danger'"
+                              >{{message}}
+                          </div>
+                            <form name="form" @submit="onSubmit" @reset="onReset" >
+                
+                                <div class="form-row" style="flex-direction: column;">
+                                    <div class="form-row">
+                                        <div v-if="!successful" class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="firstName">Nom d'utilisateur *</label>
+                                                <input v-model="form.username" name="username"   type="text" class="form-control">
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="form-row " >
+                                        <div v-if="!successful" class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="email">Email *</label>
+                                                <input v-model="form.email" name="email"  type="email" class="form-control">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-row">
+                                        <div v-if="!successful" class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="firstName">Prénom *</label>
+                                                <input v-model="form.firstName" name="firstName" type="text" class="form-control">
+                                                <div
+                                                    v-if="submitted && errors.has('firstName')"
+                                                    class="alert-danger"
+                                                    >{{errors.first('firstName')}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="!successful" class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="lastName">nom *</label>
+                                                <input v-model="form.lastName" name="lastName"  type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    
+                                    <div class="form-row">
+                                        <div v-if="!successful" class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="adress">Address</label>
+                                                <input v-model="form.adress" name="adress"  type="text" class="form-control">          
+                                            </div>
+                                        </div>
+                                        <div v-if="!successful" class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="adress2">Address 2</label>
+                                                <input v-model="form.adress2" name="adress2"   type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div v-if="!successful" class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="city">Ville</label>
+                                            <input v-model="form.city" name="city"  type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    
+                                    <div v-if="!successful" class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="zipCode">ZipCode</label>
+                                            <input v-model="form.zipCode" name="zipCode"  type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                        <div v-if="!successful" class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="telephone">Téléphone</label>
+                                                <input v-model="form.phone" name="telephone"   type="tel" class="form-control">          
+                                            </div>
+                                        </div>
+                                        <div v-if="!successful" class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="telephone2">Téléphone 2</label>
+                                                <input v-model="form.phone2" name="telephone2"   type="tel" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                <b-button v-if="!successful" type="submit" variant="primary">Submit</b-button>
+                                <b-button  v-if="!successful" type="reset" variant="danger">Reset</b-button>
+                                
+                            </form>
                              </b-container>
                             
                           </b-modal>
@@ -181,13 +241,23 @@ import {library} from '@fortawesome/fontawesome-svg-core'
     data: () => ({
       
       form: {
-          email: '',
-          name: '',
-          food: null,
-          checked: []
+          id:"",
+          username:"",
+          email: "",
+          firstName: "",
+          lastName: "",
+          phone: "",
+          phone2: "",
+          adress: "",
+          adress2: "",
+          city: "",
+          zipCode: "",
+          roles: [],
         },
-        foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+        message:"",
         show: true,
+        submitted: false,
+        successful: false,
       //userRole:"",
       modalShow: false,
       searchOpen: true,
@@ -195,7 +265,7 @@ import {library} from '@fortawesome/fontawesome-svg-core'
       key:"",
       fields: [ "username", "email", 'show_details' ],
       users: [],
-      currentTutorial: null,
+      userToUpdate: {},
       currentIndex: -1,
 
       page: 1,
@@ -219,15 +289,44 @@ import {library} from '@fortawesome/fontawesome-svg-core'
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.form))
+        
+        this.userToUpdate = JSON.stringify(this.form)
+        
+        this.hundleUpdate(this.form.id, this.userToUpdate)
       },
+
+      hundleUpdate(id, data) {
+        
+        
+      UserService.update(id, data)
+        .then(response => {
+          alert('heeyy' + response);
+          this.message = 'The user was updated successfully!';
+          this.successful = true;
+          this.submitted = true;
+          
+          
+        })
+        .catch(e => {
+          throw(e);
+          
+        });
+    },
+
       onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.form.email = ''
-        this.form.name = ''
-        this.form.food = null
-        this.form.checked = []
+      this.form.username = '';
+      this.form.email = '';
+      this.form.firstName = '';
+      this.form.lastName = '';
+      this.form.phone = '';
+      this.form.phone2 = '';
+      this.form.adress = '';
+      this.form.adress2 = '';
+      this.form.city = '';
+      this.form.zipCode = '';
+      this.form.roles = '';
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {
@@ -277,6 +376,22 @@ import {library} from '@fortawesome/fontawesome-svg-core'
         });
     },
 
+    getUpdated(id,username, email, firstName, lastName, phone, phone2, adress, adress2, city, zipCode, roles) {
+      this.modalShow = !this.modalShow
+      alert(email + '/' + id)
+      this.form.id = id;
+      this.form.username = username;
+      this.form.email = email;
+      this.form.firstName = firstName;
+      this.form.lastName = lastName;
+      this.form.phone = phone;
+      this.form.phone2 = phone2;
+      this.form.adress = adress;
+      this.form.adress2 = adress2;
+      this.form.city = city;
+      this.form.zipCode = zipCode;
+      this.form.roles = roles;
+    },
     
 
     retrieveUsers() {
@@ -285,7 +400,7 @@ import {library} from '@fortawesome/fontawesome-svg-core'
         this.page,
         this.pageSize
       );
-
+      this.message = '';
       UserService.getUsersList(params)
         .then((response) => {
           const { users, totalItems } = response.data;

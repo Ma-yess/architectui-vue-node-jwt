@@ -13,6 +13,11 @@ class UserService {
     
     return axios.get(API_URL + 'list-users', {params});
   }
+
+  update(id, data) {
+    return axios.put(API_URL + `${id}`, {data});
+  }
+
   delete(id) {
     return axios.delete(API_URL + `${id}`);
   }
