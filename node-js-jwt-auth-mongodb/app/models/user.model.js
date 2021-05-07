@@ -1,5 +1,4 @@
 
-
 module.exports = (mongoose, mongoosePaginate) => {
   const schema = new mongoose.Schema(
     {

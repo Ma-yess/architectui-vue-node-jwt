@@ -8,10 +8,9 @@ const getPagination = (page, size) => {
   return { limit, offset };
 };
 
+
 // Create and Save a new User
-exports.create = (req, res) => {
-  
-};
+//refer to auth controller signup
 
 // Retrieve all Users from the database.
 exports.findAll = (req, res) => {

@@ -12,6 +12,9 @@ module.exports = function(app) {
 
   app.get("/api/test/all", controller.allAccess);
 
+
+// # USERS CRUD
+
   // Retrieve all users
   app.get("/api/test/list-users", users.findAll);
 
@@ -22,6 +25,10 @@ module.exports = function(app) {
   app.put("/api/test/:id", users.update);
 
   app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+
+//# END USERS CRUD
+
+
 
   app.get(
     "/api/test/mod",
@@ -34,4 +41,6 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+
+
 };
