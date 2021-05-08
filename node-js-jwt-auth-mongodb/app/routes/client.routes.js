@@ -13,19 +13,19 @@ module.exports = function(app) {
 // # CLIENTS CRUD
 
   //Create New CLIENT
-  app.post("/api/auth/add-client", client.create);
+  app.post("/api/test/client/add", client.createClient);
 
   // Retrieve all CLIENTS
-  app.get("/api/test/list-client", client.findAll);
+  app.get("/api/test/client/list", client.findAllClient);
 
   // Retrieve CLIENT with id
-  app.get("/api/test/client:id", client.findOne);
+  app.get("/api/test/client/:id", client.findOneClient);
 
   // Delete a CLIENT with id
-  app.delete("/api/test/client:id", client.delete);
+  app.delete("/api/test/client/:id", client.deleteClient);
 
   // Update a CLIENT with id
-  app.put("/api/test/client:id", client.update);
+  app.put("/api/test/client/:id", client.updateClient);
 
   
 

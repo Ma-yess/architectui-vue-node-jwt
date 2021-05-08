@@ -18,15 +18,15 @@ module.exports = (mongoose, mongoosePaginate) => {
       { timestamps: true }
     );
   
-    schema.method("toJSON", function() {
-      const { __v, _id, ...object } = this.toObject();
-      object.id = _id;
-      return object;
-    });
+    //schema.method("toJSON", function() {
+    //  const { __v, _id, ...object } = this.toObject();
+    //  object.id = _id;
+    //  return object;
+   // });
   
     schema.plugin(mongoosePaginate);
     
-    const Customer = mongoose.model("customer", schema);
-    console.log('Customer model' + User);
-    return Customer;
+    const Client = mongoose.model("client", schema);
+    console.log('Client model' + Client);
+    return Client;
   };

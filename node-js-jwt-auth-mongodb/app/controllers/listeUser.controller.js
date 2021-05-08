@@ -16,7 +16,7 @@ const getPagination = (page, size) => {
 exports.findAll = (req, res) => {
   
   const { page, size, username } = req.query;
-  console.log(req.query);
+  //console.log(req.query);
   var condition = username
     ? { username: { $regex: new RegExp(username), $options: "i" } }
     : {};
@@ -57,7 +57,7 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
   var newUser = {};
-  newUser = JSON.parse(req.body.data)
+  newUser = JSON.parse(req.body.data)//JSON.parse()
   console.log(id)
   console.log(newUser)
   console.log(newUser.firstName)
