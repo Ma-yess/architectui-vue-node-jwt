@@ -2,22 +2,22 @@
     <div>
         
         <div class="app-page-title">
-        <div class="page-title-wrapper">
-            <div class="search-wrapper " v-bind:class="{ active: searchOpen }">
-            <div class="input-holder">
-                <input type="text" class="search-input" placeholder="Tapez pour rechercher" v-on:input="handleSearchChange" v-model="searchTitle"/>
-                <button class="search-icon" v-on:click="searchOpen = !searchOpen ,page = 1; retrieveUsers(); "><span/></button>
-            </div>
-            <button class="close" v-on:click="searchOpen = !searchOpen"/>
+          <div class="page-title-wrapper">
+              <div class="search-wrapper " v-bind:class="{ active: searchOpen }">
+              <div class="input-holder">
+                  <input type="text" class="search-input" placeholder="Tapez pour rechercher" v-on:input="handleSearchChange" v-model="searchTitle"/>
+                  <button class="search-icon" v-on:click="searchOpen = !searchOpen ,page = 1; retrieveUsers(); "><span/></button>
+              </div>
+              <button class="close" v-on:click="searchOpen = !searchOpen"/>
+          </div>
+              <div class="page-title-actions">
+                  <button type="button" class="btn-shadow d-inline-flex align-items-center btn btn-success" @click="$router.push('/signup')">
+                      <font-awesome-icon class="mr-2" icon="plus"/>
+                      Créer un nouveau
+                  </button>
+              </div>
+          </div>
         </div>
-            <div class="page-title-actions">
-                <button type="button" class="btn-shadow d-inline-flex align-items-center btn btn-success" @click="$router.push('/signup')">
-                    <font-awesome-icon class="mr-2" icon="plus"/>
-                    Créer un nouveau
-                </button>
-            </div>
-        </div>
-    </div>
         <div  class="mb-2" style="display: flex; align-items: center;">
         Lignes par page:
         <div class="ml-2" >
@@ -27,7 +27,7 @@
           </option>
         </select>
         </div>
-      </div>
+        </div>
         <b-card title="Tous les utilisateurs" class="main-card mb-4">
             <b-table :striped="striped"
                  :bordered="bordered"

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const API_URL = 'http://localhost:8080/api/test/clients';
+const API_URL = 'http://localhost:8080/api/test/client/';
 
 class ClientService {
   
@@ -12,11 +12,11 @@ class ClientService {
     return axios.get(API_URL + 'list', {params});
   }
 
-  update(id, data) {
+  updateClient(id, data) {
     return axios.put(API_URL + `${id}`, {data});
   }
 
-  delete(id) {
+  deleteClient(id) {
     return axios.delete(API_URL + `${id}`);
   }
   

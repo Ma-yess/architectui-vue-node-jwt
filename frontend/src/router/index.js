@@ -37,7 +37,13 @@ export default new Router({
             //meta: {layout: 'userpages'},
             component: () => import('../views/Users/Listeusers.vue'),//Dashboards/Analytics.vue'),
         },
-        // Pages
+        // Pages Clients
+        {
+            path: '/Client/list',
+            name: 'Clients',
+            //meta: {layout: 'userpages'},
+            component: () => import('../views/Clients/testPageClient.vue'),
+        },
 
         
         {

@@ -39,7 +39,7 @@
                         title: 'Utilisateurs',
                     },
                     {
-                        title: 'Listes des utilisateurs',
+                        title: 'Gerer les utilisateurs',
                         icon: 'pe-7s-users',
                         child: [
                             
@@ -54,6 +54,25 @@
                             {
                                 href: '/users',
                                 title: 'Utilisateur actuel',
+                            }
+                        ]
+                    },
+                    {
+                        header: true,
+                        title: 'Clients',
+                    },
+                    {
+                        title: 'Gerer les Clients',
+                        icon: 'pe-7s-users',
+                        child: [
+                            
+                            {
+                                href: '/client/list',
+                                title: 'Liste des Clients',
+                            },
+                            {
+                                href: '/stats',
+                                title: 'stats',
                             }
                         ]
                     },
