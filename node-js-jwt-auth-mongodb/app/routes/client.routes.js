@@ -27,7 +27,8 @@ module.exports = function(app) {
   // Update a CLIENT with id
   app.put("/api/test/client/:id", client.updateClient);
 
-  
+  // Update a CLIENT with id
+  app.get("/api/test/client/stats", client.findAllClientStats);
 
 //# END CLIENTS CRUD
 };

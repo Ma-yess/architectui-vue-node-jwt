@@ -13,6 +13,8 @@ db.url = dbConfig.url;
 
 db.users = require("./user.model")(mongoose, mongoosePaginate);
 db.clients = require("./client.model")(mongoose, mongoosePaginate);
+db.accounts = require("./account.model")(mongoose);
+db.orders = require("./order.model")(mongoose, mongoosePaginate);
 db.role = require("./role.model");
 
 db.ROLES = ["user", "admin", "moderator"];

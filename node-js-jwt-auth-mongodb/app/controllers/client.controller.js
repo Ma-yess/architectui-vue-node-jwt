@@ -92,3 +92,8 @@ exports.updateClient = (req, res) => {
           });
         });
 };
+
+exports.findAllClientStats = (req, res) => {
+    
+
+}  
